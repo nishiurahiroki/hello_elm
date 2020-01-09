@@ -9,3 +9,6 @@ elm practice.
 
 ## hosting
 https://elm-practice-d7eb2.firebaseapp.com
+
+## develop
+`elm reactor` # -> http://localhost:8000
