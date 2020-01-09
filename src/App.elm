@@ -4,6 +4,7 @@ import Browser
 import Html exposing (..)
 import Html.Events exposing (..)
 import Html.Attributes exposing (..)
+import List.Extra
 
 main =
   Browser.sandbox { init = init, update = update, view = view }
@@ -23,7 +24,8 @@ init =
 
 type Msg =
   InputTodo String |
-  AddTodo
+  AddTodo |
+  DeleteTodo Int
 
 update : Msg -> Model -> Model
 update msg model =
@@ -38,6 +40,12 @@ update msg model =
           todoList = model.todo :: model.todoList,
           todo = ""
       }
+    DeleteTodo deleteIndex ->
+      {
+        model |
+          todoList = List.Extra.removeAt deleteIndex model.todoList
+      }
+
 
 view : Model -> Html Msg
 view model =
@@ -48,9 +56,12 @@ view model =
         text " : TODO ",
         button [ onClick AddTodo ] [ text "追加" ]
       ],
-      p [] (List.map viewTodo model.todoList)
+      p [] (List.indexedMap viewTodo model.todoList)
     ]
 
-viewTodo : String -> Html Msg
-viewTodo todo =
-  p [] [text todo]
+viewTodo : Int -> String -> Html Msg
+viewTodo index todo =
+  p [] [
+    text todo,
+    button [ onClick (DeleteTodo index) ] [text "削除"]
+  ]
