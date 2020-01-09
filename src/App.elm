@@ -18,7 +18,6 @@ type alias Todo =
 type alias Model =
   {
     inputedTodo : String,
-    inputedUpdateTodo : String,
     todoList : List Todo
   }
 
@@ -26,7 +25,6 @@ init : Model
 init =
   {
     inputedTodo = "",
-    inputedUpdateTodo = "",
     todoList = []
   }
 
