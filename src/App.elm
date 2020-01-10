@@ -47,7 +47,9 @@ update msg model =
     InputUpdateTodo updateIndex inputedUpdateTodo ->
       {
         model |
-          todoList = List.Extra.updateAt updateIndex (\todo -> { todo | content = inputedUpdateTodo }) model.todoList
+          todoList =
+            model.todoList
+              |> List.Extra.updateAt updateIndex (\todo -> { todo | content = inputedUpdateTodo })
       }
     AddTodo ->
       {
@@ -61,21 +63,22 @@ update msg model =
     DeleteTodo deleteIndex ->
       {
         model |
-          todoList = List.Extra.removeAt deleteIndex model.todoList
+          todoList = model.todoList |> List.Extra.removeAt deleteIndex
       }
     TransFormInputText transFormIndex ->
       {
         model |
           todoList =
             model.todoList
-              |> List.map (\todo -> { todo | isUpdateMode = False }) 
+              |> List.map (\todo -> { todo | isUpdateMode = False })
               |> List.Extra.updateAt transFormIndex (\todo -> {todo | isUpdateMode = True})
       }
     UpdateTodo updateIndex content ->
       {
         model |
           todoList =
-            List.Extra.updateAt updateIndex (\todo -> { todo | content = content, isUpdateMode = False }) model.todoList
+            model.todoList
+              |> List.Extra.updateAt updateIndex (\todo -> { todo | content = content, isUpdateMode = False })
       }
 
 
