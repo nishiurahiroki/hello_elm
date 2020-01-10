@@ -6,8 +6,13 @@ import Html.Events exposing (..)
 import Html.Attributes exposing (..)
 import List.Extra
 
+
 main =
-  Browser.sandbox { init = init, update = update, view = view }
+  Browser.sandbox {
+    init = init,
+    update = update,
+    view = view
+  }
 
 type alias Todo =
   {
@@ -52,14 +57,17 @@ update msg model =
               |> List.Extra.updateAt updateIndex (\todo -> { todo | content = inputedUpdateTodo })
       }
     AddTodo ->
-      {
-        model |
-          todoList = {
-            content = model.inputedTodo,
-            isUpdateMode = False
-          } :: model.todoList,
-          inputedTodo = ""
-      }
+      if model.inputedTodo |> String.isEmpty then
+        model
+      else
+        {
+          model |
+            todoList = {
+              content = model.inputedTodo,
+              isUpdateMode = False
+            } :: model.todoList,
+            inputedTodo = ""
+        }
     DeleteTodo deleteIndex ->
       {
         model |
