@@ -67,7 +67,8 @@ update msg model =
       {
         model |
           todoList =
-            List.map (\todo -> { todo | isUpdateMode = False }) model.todoList
+            model.todoList
+              |> List.map (\todo -> { todo | isUpdateMode = False }) 
               |> List.Extra.updateAt transFormIndex (\todo -> {todo | isUpdateMode = True})
       }
     UpdateTodo updateIndex content ->
