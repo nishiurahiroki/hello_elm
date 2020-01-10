@@ -33,7 +33,7 @@ type Msg =
   InputUpdateTodo Int String |
   AddTodo |
   DeleteTodo Int |
-  TransFormInputText Int |
+  TransFormUpdateTextField Int |
   UpdateTodo Int String
 
 
@@ -65,7 +65,7 @@ update msg model =
         model |
           todoList = model.todoList |> List.Extra.removeAt deleteIndex
       }
-    TransFormInputText transFormIndex ->
+    TransFormUpdateTextField transFormIndex ->
       {
         model |
           todoList =
@@ -104,6 +104,6 @@ viewTodo index todo =
     ]
   else
     p [] [
-      span   [ onDoubleClick (TransFormInputText index) ] [ text todo.content ],
+      span   [ onDoubleClick (TransFormUpdateTextField index) ] [ text todo.content ],
       button [ onClick (DeleteTodo index) ] [text "削除"]
     ]
