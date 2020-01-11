@@ -108,10 +108,11 @@ viewTodo index todo =
   if todo.isUpdateMode then
     p [] [
       input  [ type_ "text", value todo.content, onInput (InputUpdateTodoText index) ] [ ],
-      button [ onClick (UpdateTodo index todo.content) ] [ text "更新" ] -- TODO ↑のテキストが変更された時点でtodo.contentがupdateされてるからここでも更新してる意味あんまない?
+      button [ onClick (UpdateTodo index todo.content) ] [ text "完了" ] -- TODO ↑のテキストが変更された時点でtodo.contentがupdateされてるからここでも更新してる意味あんまない?
     ]
   else
     p [] [
-      span   [ onDoubleClick (TransFormUpdateTextField index) ] [ text todo.content ],
-      button [ onClick (DeleteTodo index) ] [text "削除"]
+      span   [] [ text todo.content ],
+      button [ onClick (DeleteTodo index) ] [text "削除"],
+      button [ onClick (TransFormUpdateTextField index) ] [ text "変更" ]
     ]
