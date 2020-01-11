@@ -34,8 +34,8 @@ init =
   }
 
 type Msg =
-  InputTodo String |
-  InputUpdateTodo Int String |
+  InputTodoText String |
+  InputUpdateTodoText Int String |
   AddTodo |
   DeleteTodo Int |
   TransFormUpdateTextField Int |
@@ -45,11 +45,11 @@ type Msg =
 update : Msg -> Model -> Model
 update msg model =
   case msg of
-    InputTodo inputedTodo ->
+    InputTodoText inputedTodo ->
       {
         model | inputedTodo = inputedTodo
       }
-    InputUpdateTodo updateIndex inputedUpdateTodo ->
+    InputUpdateTodoText updateIndex inputedUpdateTodo ->
       {
         model |
           todoList =
@@ -95,7 +95,7 @@ view model =
   div []
     [
       p [] [
-        input [ type_ "text", value model.inputedTodo , onInput InputTodo ] [],
+        input [ type_ "text", value model.inputedTodo , onInput InputTodoText ] [],
         text " : TODO ",
         button [ onClick AddTodo ] [ text "追加" ]
       ],
@@ -107,7 +107,7 @@ viewTodo : Int -> Todo -> Html Msg
 viewTodo index todo =
   if todo.isUpdateMode then
     p [] [
-      input  [ type_ "text", value todo.content, onInput (InputUpdateTodo index) ] [ ],
+      input  [ type_ "text", value todo.content, onInput (InputUpdateTodoText index) ] [ ],
       button [ onClick (UpdateTodo index todo.content) ] [ text "更新" ] -- TODO ↑のテキストが変更された時点でtodo.contentがupdateされてるからここでも更新してる意味あんまない?
     ]
   else
